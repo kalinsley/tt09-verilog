@@ -91,6 +91,7 @@ module tb ();
     // $display("Test Case 5: State: %d, Spike: %b", user_project.state_o, user_project.spike_o);
 
     // Finalize simulation
+    #1000000000;
     $finish;
   end
 
