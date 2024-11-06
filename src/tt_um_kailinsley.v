@@ -22,15 +22,15 @@ module tt_um_kailinsley (
     assign uio_oe  = 0;
 
     // List all unused inputs to prevent warnings
-    wire _unused = &{ena, clk, rst_n, 1'b0};
-    
+    wire _unused = ena;
+
     // Parameters for the LIF module
     localparam THRESHOLD = 8'd128;
     localparam THRESHOLD_INC = 8'd5;
     localparam THRESHOLD_DEC = 8'd1;
     localparam THRESHOLD_MIN = 8'd75;
 
-  // Internal wires for LIF module
+    // Internal wires for LIF module
     wire [7:0] state_o;
     wire spike_o;
   
@@ -44,7 +44,7 @@ module tt_um_kailinsley (
         .weight_i(weight_i),
         .data_o(synapse_o)
     );
-
+    
     // Instantiate the LIF module
     lif #(
         .THRESHOLD(THRESHOLD),
@@ -54,7 +54,7 @@ module tt_um_kailinsley (
     ) lif_inst (
         .clk_i(clk),
         .rst_ni(rst_n),
-        .current(synapse_o), // Using ui_in as the input current to LIF
+        .current(synapse_o),
         .state_o(state_o),
         .spike_o(spike_o)
     );
