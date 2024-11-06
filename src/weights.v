@@ -1,9 +1,9 @@
 `default_nettype none
 
-module #(
+module weights #(
     parameter NUM_SYNAPSES = 100,
     parameter WIDTH_P = 8
-) weights (
+) (
     input clk_i, 
     input rst_ni,
     output reg [WIDTH_P-1:0] weights_o [0:NUM_SYNAPSES-1] 
