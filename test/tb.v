@@ -27,8 +27,8 @@ module tb ();
   wire VGND = 1'b0;
 `endif
 
-  // Replace tt_um_example with your module name:
-  tt_um_example user_project (
+  // Instantiate your top-level module
+  tt_um_kailinsley user_project (
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
@@ -45,5 +45,53 @@ module tb ();
       .clk    (clk),      // clock
       .rst_n  (rst_n)     // not reset
   );
+
+  // Clock generation
+  initial begin
+    clk = 0;
+    forever #5 clk = ~clk; // Clock period of 10 time units
+  end
+
+  // Test procedure
+  initial begin
+    // Initialize inputs
+    rst_n = 0;
+    ena = 1; // Assume enable is always high
+    ui_in = 0;
+    uio_in = 0;
+
+    // Apply reset
+    #10;
+    rst_n = 1; // Release reset
+
+    // // Test cases
+    // // Test Case 1: Input below threshold, expect no spike
+    // ui_in = 8'd100; // Below threshold
+    // #10;
+    // $display("Test Case 1: State: %d, Spike: %b", user_project.state_o, user_project.spike_o); // Assuming state_o and spike_o are accessible
+
+    // // Test Case 2: Input at threshold, expect spike
+    // ui_in = 8'd128; // At threshold
+    // #10;
+    // $display("Test Case 2: State: %d, Spike: %b", user_project.state_o, user_project.spike_o);
+
+    // // Test Case 3: Input above threshold, expect spike
+    // ui_in = 8'd150; // Above threshold
+    // #10;
+    // $display("Test Case 3: State: %d, Spike: %b", user_project.state_o, user_project.spike_o);
+
+    // // Test Case 4: Check state decay
+    // ui_in = 8'd0; // No current input
+    // #50; // Wait for a few clock cycles
+    // $display("Test Case 4: State: %d, Spike: %b", user_project.state_o, user_project.spike_o);
+
+    // // Test Case 5: Input decreases to threshold
+    // ui_in = 8'd120; // Below threshold
+    // #10;
+    // $display("Test Case 5: State: %d, Spike: %b", user_project.state_o, user_project.spike_o);
+
+    // Finalize simulation
+    $finish;
+  end
 
 endmodule

@@ -23,7 +23,7 @@ module tt_um_kailinsley (
 
     // List all unused inputs to prevent warnings
     wire _unused = &{ena, clk, rst_n, 1'b0};
-
+    
     // Parameters for the LIF module
     localparam THRESHOLD = 8'd128;
     localparam THRESHOLD_INC = 8'd5;
@@ -59,6 +59,6 @@ module tt_um_kailinsley (
         .spike_o(spike_o)
     );
 
-    
+
 
 endmodule
