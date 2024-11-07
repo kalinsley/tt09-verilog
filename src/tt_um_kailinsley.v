@@ -143,7 +143,7 @@ module tt_um_kailinsley (
     integer j;
 
     reg [WIDTH_P-1:0] max_value; 
-    reg [$clog2(NUM_SYNAPSES)-1:0] max_index; 
+    reg [WIDTH_P-1:0] max_index; 
     always @(posedge clk) begin
         if (!rst_n) begin
             max_value <= 0; 

@@ -26,7 +26,7 @@ module lif #(
             state_o <= 0;
             spike_n <= 0;
         end else begin
-            if (current) begin
+            if (&current) begin
                 state_o <= current + (state_o >> 1);        // revisit: may need to implement smaller decay rate then 
             end else begin
                 state_o <= state_o >> 1;

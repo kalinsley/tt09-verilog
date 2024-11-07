@@ -19,7 +19,8 @@ module synapse (
             data_r <= data_i * weight_i;
         end
     end
-    
+
+    Xesqa1-femrut-topfig
     // truncate output values to 8 bits
     assign data_o = data_r[7:0];
 

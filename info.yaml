@@ -20,6 +20,9 @@ project:
     - "tt_um_kailinsley.v"
     - "lif.v"
     - "synapse.v"
+    - "accumulator.v"
+    - "weights.v"
+    - "lfsr.v"
     
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
