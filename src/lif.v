@@ -11,11 +11,12 @@ module lif #(
     input rst_ni,
     input [7:0] current,
 
-    output reg [7:0] state_o,
+    // output reg [7:0] state_o,
     output spike_o
 );
 
-    // reg [7:0] state_n;              // changed from wire to reg - sequential logic to update synchronously
+    // reg [7:0] state_n;    
+    reg [7:0] state_r;
     reg [7:0] variant_threshold;    // variant threshold increments on a spike, continuously decrements otherwise 
     reg spike_n;                    // sequential value of next spike
 
@@ -23,13 +24,13 @@ module lif #(
     always @(posedge clk_i) begin
         if (!rst_ni) begin
             variant_threshold <= THRESHOLD;
-            state_o <= 0;
+            state_r <= 0;
             spike_n <= 0;
         end else begin
             if (&current) begin
-                state_o <= current + (state_o >> 1);        // revisit: may need to implement smaller decay rate then 
+                state_r <= current + (state_r >> 1);        // revisit: may need to implement smaller decay rate then 
             end else begin
-                state_o <= state_o >> 1;
+                state_r <= state_r >> 1;
             end
             if (spike_n) begin
                 variant_threshold <= variant_threshold + THRESHOLD_INC;
@@ -37,9 +38,9 @@ module lif #(
                 variant_threshold <= variant_threshold - THRESHOLD_DEC;
             end
 
-            if (state_o >= variant_threshold) begin
+            if (state_r >= variant_threshold) begin
                 spike_n <= 1;
-                state_o <= 0;
+                state_r <= 0;
             end else begin
                 spike_n <= 0;
             end
@@ -50,6 +51,5 @@ module lif #(
     // assign spike_n = (state_n <= variant_threshold);
 
     assign spike_o = spike_n;
-    // assign state_o = state_n;
 
 endmodule

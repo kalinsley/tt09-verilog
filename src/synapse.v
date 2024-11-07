@@ -20,7 +20,9 @@ module synapse (
         end
     end
 
+
     // truncate output values to 8 bits
+
     assign data_o = data_r[7:0];
 
 endmodule

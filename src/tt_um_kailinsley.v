@@ -19,9 +19,12 @@ module tt_um_kailinsley (
     // All output pins must be assigned. If not used, assign to 0.
     // assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
     // assign uio_out = 0;
-    // assign uio_oe  = 0;
+    assign uio_oe  = 0;
+
+
 
     // List all unused inputs to prevent warnings
+    wire _unused = {ena, uio_in};
 
     // Parameters for the LIF module
     localparam THRESHOLD = 8'd128;
@@ -33,19 +36,19 @@ module tt_um_kailinsley (
     localparam WIDTH_P = 8;
 
     // Internal wires for LIF module
-    wire [7:0] state_o;
+    // wire [7:0] state_o;
     wire [NUM_SYNAPSES-1:0] input_spike_o, hidden_spike_o;
   
     // wire [7:0] weight_i, 
     wire [WIDTH_P-1:0] synapse_o [0:NUM_SYNAPSES-1];
-    wire [WIDTH_P-1:0] hidden_o [0:NUM_SYNAPSES-1];
-    wire [WIDTH_P-1:0] readout_o [0:NUM_SYNAPSES-1];
+    // wire [WIDTH_P-1:0] hidden_o [0:NUM_SYNAPSES-1];
+    // wire [WIDTH_P-1:0] readout_o [0:NUM_SYNAPSES-1];
     wire [WIDTH_P-1:0] output_o [0:NUM_SYNAPSES-1];
     // reg [WIDTH_P-1:0] readout_weights_o [0:NUM_SYNAPSES-1];     // these two are randomly assigned weight matrices, where weights are
     // reg [WIDTH_P-1:0] synapse_weights_o [0:NUM_SYNAPSES-1];     // width_p bits wide and NUM_SYNAPSES weights are generated
     // reg [WIDTH_P-1:0] hidden_weights_o [0:NUM_SYNAPSES-1];
-    reg [WIDTH_P-1:0] neuron_state_o [0:NUM_SYNAPSES-1];
-    reg [WIDTH_P-1:0] hidden_state_o [0:NUM_SYNAPSES-1];
+    // reg [WIDTH_P-1:0] neuron_state_o [0:NUM_SYNAPSES-1];
+    // reg [WIDTH_P-1:0] hidden_state_o [0:NUM_SYNAPSES-1];
 
     // weights #(
     //     .NUM_SYNAPSES(10),
@@ -102,7 +105,7 @@ module tt_um_kailinsley (
                 .clk_i(clk),
                 .rst_ni(rst_n),
                 .current(synapse_o[i]),         // Feed synapse output to each neuron
-                .state_o(neuron_state_o[i]),    // Output the state for each neuron
+                // .state_o(neuron_state_o[i]),    // Output the state for each neuron
                 .spike_o(input_spike_o[i])               // Capture spike for each neuron
             );
         end
@@ -119,7 +122,7 @@ module tt_um_kailinsley (
                 .clk_i(clk),
                 .rst_ni(rst_n),
                 .current(input_spike_o[i] ? 8'd128 : 8'b0),       // hidden_weights_o[i] 
-                .state_o(hidden_state_o[i]),    // Output the state for each neuron
+                // .state_o(hidden_state_o[i]),    // Output the state for each neuron
                 .spike_o(hidden_spike_o[i])     // Capture spike for each hidden neuron
             );
         end
