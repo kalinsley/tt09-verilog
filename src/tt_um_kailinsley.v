@@ -17,48 +17,150 @@ module tt_um_kailinsley (
 );
 
     // All output pins must be assigned. If not used, assign to 0.
-    assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-    assign uio_out = 0;
-    assign uio_oe  = 0;
+    // assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
+    // assign uio_out = 0;
+    // assign uio_oe  = 0;
 
     // List all unused inputs to prevent warnings
-    wire _unused = ena;
 
     // Parameters for the LIF module
     localparam THRESHOLD = 8'd128;
-    localparam THRESHOLD_INC = 8'd5;
+    localparam THRESHOLD_INC = 8'd20;
     localparam THRESHOLD_DEC = 8'd1;
     localparam THRESHOLD_MIN = 8'd75;
 
+    localparam NUM_SYNAPSES = 10;
+    localparam WIDTH_P = 8;
+
     // Internal wires for LIF module
     wire [7:0] state_o;
-    wire spike_o;
+    wire [NUM_SYNAPSES-1:0] input_spike_o, hidden_spike_o;
   
-    wire [7:0] weight_i, synapse_o;
-    assign weight_i = 8'd2;
+    // wire [7:0] weight_i, 
+    wire [WIDTH_P-1:0] synapse_o [0:NUM_SYNAPSES-1];
+    wire [WIDTH_P-1:0] hidden_o [0:NUM_SYNAPSES-1];
+    wire [WIDTH_P-1:0] readout_o [0:NUM_SYNAPSES-1];
+    wire [WIDTH_P-1:0] output_o [0:NUM_SYNAPSES-1];
+    // reg [WIDTH_P-1:0] readout_weights_o [0:NUM_SYNAPSES-1];     // these two are randomly assigned weight matrices, where weights are
+    // reg [WIDTH_P-1:0] synapse_weights_o [0:NUM_SYNAPSES-1];     // width_p bits wide and NUM_SYNAPSES weights are generated
+    // reg [WIDTH_P-1:0] hidden_weights_o [0:NUM_SYNAPSES-1];
+    reg [WIDTH_P-1:0] neuron_state_o [0:NUM_SYNAPSES-1];
+    reg [WIDTH_P-1:0] hidden_state_o [0:NUM_SYNAPSES-1];
 
-    synapse #() synpase_edge (
-        .clk_i(clk),
-        .rst_ni(rst_n),
-        .data_i(ui_in),
-        .weight_i(weight_i),
-        .data_o(synapse_o)
-    );
+    // weights #(
+    //     .NUM_SYNAPSES(10),
+    //     .WIDTH_P(8),
+    //     .SEED(8'b10101010)
+    // ) input_initializer (
+    //     .clk_i(clk),
+    //     .rst_ni(rst_n),
+    //     .weights_o(synapse_weights_o)
+    // );
+
+    // weights #(
+    //     .NUM_SYNAPSES(10),
+    //     .WIDTH_P(8),
+    //     .SEED(8'b11001100)
+    // ) readout_initializer (
+    //     .clk_i(clk),
+    //     .rst_ni(rst_n),
+    //     .weights_o(readout_weights_o)
+    // );
+
+    // weights #(
+    //     .NUM_SYNAPSES(10),
+    //     .WIDTH_P(8),
+    //     .SEED(8'b11110000)
+    // ) hidden_initializer (
+    //     .clk_i(clk),
+    //     .rst_ni(rst_n),
+    //     .weights_o(hidden_weights_o)
+    // );
+
+    genvar i;
+    generate
+        for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin : input_layer_synapse
+            synapse #() input_layer (
+                .clk_i(clk),
+                .rst_ni(rst_n),
+                .data_i(ui_in),     // ui_in goes in all neurons and is weighted by random values
+                .weight_i(8'd1),    // synapse_weights_o[i] 
+                .data_o(synapse_o[i])
+            );
+        end
+    endgenerate
     
-    // Instantiate the LIF module
-    lif #(
-        .THRESHOLD(THRESHOLD),
-        .THRESHOLD_INC(THRESHOLD_INC),
-        .THRESHOLD_DEC(THRESHOLD_DEC),
-        .THRESHOLD_MIN(THRESHOLD_MIN)
-    ) lif_inst (
-        .clk_i(clk),
-        .rst_ni(rst_n),
-        .current(synapse_o),
-        .state_o(state_o),
-        .spike_o(spike_o)
-    );
 
+    generate
+        for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin : input_layer_lif
+            lif #(
+                .THRESHOLD(THRESHOLD),
+                .THRESHOLD_INC(THRESHOLD_INC),
+                .THRESHOLD_DEC(THRESHOLD_DEC),
+                .THRESHOLD_MIN(THRESHOLD_MIN)
+            ) input_lif_neuron (
+                .clk_i(clk),
+                .rst_ni(rst_n),
+                .current(synapse_o[i]),         // Feed synapse output to each neuron
+                .state_o(neuron_state_o[i]),    // Output the state for each neuron
+                .spike_o(input_spike_o[i])               // Capture spike for each neuron
+            );
+        end
+    endgenerate
 
+    generate
+        for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin : hidden_layer_lif
+            lif #(
+                .THRESHOLD(THRESHOLD),
+                .THRESHOLD_INC(THRESHOLD_INC),
+                .THRESHOLD_DEC(THRESHOLD_DEC),
+                .THRESHOLD_MIN(THRESHOLD_MIN)
+            ) hidden_lif_neuron (
+                .clk_i(clk),
+                .rst_ni(rst_n),
+                .current(input_spike_o[i] ? 8'd128 : 8'b0),       // hidden_weights_o[i] 
+                .state_o(hidden_state_o[i]),    // Output the state for each neuron
+                .spike_o(hidden_spike_o[i])     // Capture spike for each hidden neuron
+            );
+        end
+    endgenerate
+
+    generate
+        for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin : output_layer_accumulate
+            accumulator #() output_layer (
+                .clk_i(clk),
+                .rst_ni(rst_n),
+                .data_i(hidden_spike_o[i] ? 8'd128 : 8'b0),       // readout_weights_o[i]
+                .data_o(output_o[i])
+            );
+        end
+    endgenerate
+
+    // so now we have this data flow:
+        // input 8 bits -> weighted by all synapses -> 1to1 dynamic LIF ->
+        // spikes are weighted at readout layer -> readouts are accumulated at accumulator
+
+    integer j;
+
+    reg [WIDTH_P-1:0] max_value; 
+    reg [$clog2(NUM_SYNAPSES)-1:0] max_index; 
+    always @(posedge clk) begin
+        if (!rst_n) begin
+            max_value <= 0; 
+            max_index <= 0;
+        end else begin
+            max_value <= 0;
+            max_index <= 0;
+            for (j = 0; j < NUM_SYNAPSES; j = j + 1) begin
+                if (output_o[j] > max_value) begin
+                    max_value <= output_o[j];
+                    max_index <= j; 
+                end
+            end
+        end
+    end
+    
+    assign uio_out = max_index;
+    assign uo_out = max_value;        // assign uo_out to the maximum value from readout layer
 
 endmodule
