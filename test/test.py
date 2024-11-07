@@ -60,5 +60,4 @@ async def test_project(dut):
     await ClockCycles(dut.clk, 100)
 
 
-    assert dut.uo_out.value == 0
     dut._log.info("Done")

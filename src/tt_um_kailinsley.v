@@ -32,7 +32,7 @@ module tt_um_kailinsley (
     localparam THRESHOLD_DEC = 8'd1;
     localparam THRESHOLD_MIN = 8'd75;
 
-    localparam NUM_SYNAPSES = 1;
+    localparam NUM_SYNAPSES = 2;
     localparam WIDTH_P = 8;
 
     // Internal wires for LIF module
