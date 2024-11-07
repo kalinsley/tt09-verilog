@@ -114,7 +114,7 @@ module tt_um_kailinsley (
     generate
         for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin : hidden_layer_lif
             lif #(
-                .THRESHOLD(THRESHOLD),
+                .THRESHOLD(THRESHOLD-1),
                 .THRESHOLD_INC(THRESHOLD_INC),
                 .THRESHOLD_DEC(THRESHOLD_DEC),
                 .THRESHOLD_MIN(THRESHOLD_MIN)
@@ -130,10 +130,12 @@ module tt_um_kailinsley (
 
     generate
         for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin : output_layer_accumulate
+            // CAREFUL!!!
+            // accumulator only collects up to 8 bits of data_o, so when 128 + 128 occurs we get back to 0
             accumulator #() output_layer (
                 .clk_i(clk),
                 .rst_ni(rst_n),
-                .data_i(hidden_spike_o[i] ? 8'd128 : 8'b0),       // readout_weights_o[i]
+                .data_i(hidden_spike_o[i] ? 8'd75 : 8'b0),       // readout_weights_o[i]
                 .data_o(output_o[i])
             );
         end

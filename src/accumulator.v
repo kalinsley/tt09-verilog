@@ -13,7 +13,7 @@ reg [WIDTH_P-1:0] accumulation;
 always @(posedge clk_i) begin
     if (!rst_ni) begin
         accumulation <= 0;      // Reset the accumulated value
-    end else if (data_i) begin
+    end else if (data_i != {WIDTH_P{1'b0}}) begin
         accumulation <= accumulation + data_i; // Accumulate input
     end else begin
         accumulation <= accumulation;
