@@ -1,11 +1,11 @@
 `default_nettype none
 
 module lif #(
-    parameter THRESHOLD = 8'd128,
+    parameter THRESHOLD = 128,
     // parameter COOLDOWN_PRD = 5'd5,
-    parameter THRESHOLD_INC = 8'd5,
-    parameter THRESHOLD_DEC = 8'd1,
-    parameter THRESHOLD_MIN = 8'd75
+    parameter THRESHOLD_INC = 5,
+    parameter THRESHOLD_DEC = 1,
+    parameter THRESHOLD_MIN = 75
 ) (
     input clk_i,
     input rst_ni,
@@ -23,7 +23,9 @@ module lif #(
     // sequential logic to synchronize variant threshold to state
     always @(posedge clk_i) begin
         if (!rst_ni) begin
+            /* verilator lint_off WIDTHTRUNC */
             variant_threshold <= THRESHOLD;
+            /* verilator lint_on WIDTHTRUNC */
             state_r <= 0;
             spike_n <= 0;
         end else begin

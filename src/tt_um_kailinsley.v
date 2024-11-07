@@ -24,7 +24,7 @@ module tt_um_kailinsley (
 
 
     // List all unused inputs to prevent warnings
-    wire _unused = {ena, uio_in};
+    wire _unused = &{ena, uio_in};
 
     // Parameters for the LIF module
     localparam THRESHOLD = 8'd128;
@@ -110,7 +110,6 @@ module tt_um_kailinsley (
             );
         end
     endgenerate
-
     generate
         for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin : hidden_layer_lif
             lif #(
@@ -159,7 +158,7 @@ module tt_um_kailinsley (
             for (j = 0; j < NUM_SYNAPSES; j = j + 1) begin
                 if (output_o[j] > max_value) begin
                     max_value <= output_o[j];
-                    max_index <= j; 
+                    max_index <= j[WIDTH_P-1:0]; 
                 end
             end
         end
