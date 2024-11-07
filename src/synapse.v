@@ -22,7 +22,7 @@ module synapse (
 
 
     // truncate output values to 8 bits
-
+    wire overflow_flag = |data_r[15:8];
     assign data_o = data_r[7:0];
 
 endmodule
