@@ -1,7 +1,7 @@
 `default_nettype none
 
 module lfsr#(
-    parameter SEED = 8'b10101010
+    parameter SEED = 42
 ) (
     input clk_i, 
     input rst_ni, 

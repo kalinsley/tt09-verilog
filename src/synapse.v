@@ -22,9 +22,7 @@ module synapse (
 
 
     // truncate output values to 8 bits
-    /* verilator lint_off UNUSEDSIGNAL */
-    wire overflow_flag = |data_r[15:8];
-    /* verilator lint_on UNUSEDSIGNAL */
+    wire _unused = |data_r[15:8];
     assign data_o = data_r[7:0];
 
 endmodule
