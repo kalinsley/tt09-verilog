@@ -155,86 +155,41 @@ module tt_um_kailinsley (
     ) hidden_lif_2 (.clk_i(clk), .rst_ni(rst_n),.current(hidden_current_2),.spike_o(hidden_spike_o[2])); 
 
     // Fully connected computations from hidden layer (3) to output layer (10)
-    assign output_current_0 = (input_spike_o[0] ? hidden_weight_0 : 8'b0) + 
-                            (input_spike_o[1] ? hidden_weight_0 : 8'b0) + 
-                            (input_spike_o[2] ? hidden_weight_0 : 8'b0) + 
-                            (input_spike_o[3] ? hidden_weight_0 : 8'b0) + 
-                            (input_spike_o[4] ? hidden_weight_0 : 8'b0) + 
-                            (input_spike_o[5] ? hidden_weight_0 : 8'b0) +
-                            (input_spike_o[6] ? hidden_weight_0 : 8'b0) +
-                            (input_spike_o[7] ? hidden_weight_0 : 8'b0);
+    assign output_current_0 = (hidden_spike_o[0] ? hidden_weight_0 : 8'b0) + 
+                            (hidden_spike_o[1] ? hidden_weight_0 : 8'b0) + 
+                            (hidden_spike_o[2] ? hidden_weight_0 : 8'b0);
 
-    assign output_current_1 = (input_spike_o[0] ? hidden_weight_1 : 8'b0) + 
-                            (input_spike_o[1] ? hidden_weight_1 : 8'b0) + 
-                            (input_spike_o[2] ? hidden_weight_1 : 8'b0) + 
-                            (input_spike_o[3] ? hidden_weight_1 : 8'b0) + 
-                            (input_spike_o[4] ? hidden_weight_1 : 8'b0) + 
-                            (input_spike_o[5] ? hidden_weight_1 : 8'b0) +
-                            (input_spike_o[6] ? hidden_weight_1 : 8'b0) +
-                            (input_spike_o[7] ? hidden_weight_1 : 8'b0);
+    assign output_current_1 = (hidden_spike_o[0] ? hidden_weight_1 : 8'b0) + 
+                            (hidden_spike_o[1] ? hidden_weight_1 : 8'b0) + 
+                            (hidden_spike_o[2] ? hidden_weight_1 : 8'b0);
 
-    assign output_current_2 = (input_spike_o[0] ? hidden_weight_2 : 8'b0) + 
-                            (input_spike_o[1] ? hidden_weight_2 : 8'b0) + 
-                            (input_spike_o[2] ? hidden_weight_2 : 8'b0) + 
-                            (input_spike_o[3] ? hidden_weight_2 : 8'b0) + 
-                            (input_spike_o[4] ? hidden_weight_2 : 8'b0) + 
-                            (input_spike_o[5] ? hidden_weight_2 : 8'b0) +
-                            (input_spike_o[6] ? hidden_weight_2 : 8'b0) +
-                            (input_spike_o[7] ? hidden_weight_2 : 8'b0);
+    assign output_current_2 = (hidden_spike_o[0] ? hidden_weight_2 : 8'b0) + 
+                            (hidden_spike_o[1] ? hidden_weight_2 : 8'b0) + 
+                            (hidden_spike_o[2] ? hidden_weight_2 : 8'b0);
 
     assign output_current_3 = (hidden_spike_o[0] ? hidden_weight_3 : 8'b0) + 
                             (hidden_spike_o[1] ? hidden_weight_3 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_3 : 8'b0) + 
-                            (hidden_spike_o[3] ? hidden_weight_3 : 8'b0) + 
-                            (hidden_spike_o[4] ? hidden_weight_3 : 8'b0) + 
-                            (hidden_spike_o[5] ? hidden_weight_3 : 8'b0) +
-                            (hidden_spike_o[6] ? hidden_weight_3 : 8'b0) +
-                            (hidden_spike_o[7] ? hidden_weight_3 : 8'b0);
+                            (hidden_spike_o[2] ? hidden_weight_3 : 8'b0);
 
     assign output_current_4 = (hidden_spike_o[0] ? hidden_weight_4 : 8'b0) + 
                             (hidden_spike_o[1] ? hidden_weight_4 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_4 : 8'b0) + 
-                            (hidden_spike_o[3] ? hidden_weight_4 : 8'b0) + 
-                            (hidden_spike_o[4] ? hidden_weight_4 : 8'b0) + 
-                            (hidden_spike_o[5] ? hidden_weight_4 : 8'b0) +
-                            (hidden_spike_o[6] ? hidden_weight_4 : 8'b0) +
-                            (hidden_spike_o[7] ? hidden_weight_4 : 8'b0);
+                            (hidden_spike_o[2] ? hidden_weight_4 : 8'b0);
 
     assign output_current_5 = (hidden_spike_o[0] ? hidden_weight_5 : 8'b0) + 
                             (hidden_spike_o[1] ? hidden_weight_5 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_5 : 8'b0) + 
-                            (hidden_spike_o[3] ? hidden_weight_5 : 8'b0) + 
-                            (hidden_spike_o[4] ? hidden_weight_5 : 8'b0) + 
-                            (hidden_spike_o[5] ? hidden_weight_5 : 8'b0) +
-                            (hidden_spike_o[6] ? hidden_weight_5 : 8'b0) +
-                            (hidden_spike_o[7] ? hidden_weight_5 : 8'b0);
+                            (hidden_spike_o[2] ? hidden_weight_5 : 8'b0);
 
     assign output_current_6 = (hidden_spike_o[0] ? hidden_weight_6 : 8'b0) + 
                             (hidden_spike_o[1] ? hidden_weight_6 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_6 : 8'b0) + 
-                            (hidden_spike_o[3] ? hidden_weight_6 : 8'b0) + 
-                            (hidden_spike_o[4] ? hidden_weight_6 : 8'b0) + 
-                            (hidden_spike_o[5] ? hidden_weight_6 : 8'b0) +
-                            (hidden_spike_o[6] ? hidden_weight_6 : 8'b0) +
-                            (hidden_spike_o[7] ? hidden_weight_6 : 8'b0);
+                            (hidden_spike_o[2] ? hidden_weight_6 : 8'b0);
 
     assign output_current_7 = (hidden_spike_o[0] ? hidden_weight_7 : 8'b0) + 
                             (hidden_spike_o[1] ? hidden_weight_7 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_7 : 8'b0) + 
-                            (hidden_spike_o[3] ? hidden_weight_7 : 8'b0) + 
-                            (hidden_spike_o[4] ? hidden_weight_7 : 8'b0) + 
-                            (hidden_spike_o[5] ? hidden_weight_7 : 8'b0) +
-                            (hidden_spike_o[6] ? hidden_weight_7 : 8'b0) +
-                            (hidden_spike_o[7] ? hidden_weight_7 : 8'b0);
+                            (hidden_spike_o[2] ? hidden_weight_7 : 8'b0);
 
     assign output_current_8 = (hidden_spike_o[0] ? hidden_weight_8 : 8'b0) + 
                             (hidden_spike_o[1] ? hidden_weight_8 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_8 : 8'b0) + 
-                            (hidden_spike_o[3] ? hidden_weight_8 : 8'b0) + 
-                            (hidden_spike_o[4] ? hidden_weight_8 : 8'b0) + 
-                            (hidden_spike_o[5] ? hidden_weight_8 : 8'b0) +
-                            (hidden_spike_o[6] ? hidden_weight_8 : 8'b0) +
-                            (hidden_spike_o[7] ? hidden_weight_8 : 8'b0);
+                            (hidden_spike_o[2] ? hidden_weight_8 : 8'b0);
 
     assign output_current_9 = (hidden_spike_o[0] ? hidden_weight_9 : 8'b0) + 
                             (hidden_spike_o[1] ? hidden_weight_9 : 8'b0) + 
