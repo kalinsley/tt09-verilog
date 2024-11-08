@@ -223,8 +223,17 @@ module tt_um_kailinsley (
     ) output_lif_9 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_9),.spike_o(output_spike_o[9])); 
 
 
+    wire [3:0] onehot2binary_o;
+    onehot2binary #(
+        .WIDTH_P(10)
+    ) readout (
+        .clk_i(clk),
+        .rst_ni(rst_n),
+        .one_hot_i(output_spike_o),
+        .binary_o(onehot2binary_o)
+    );
 
-    assign uo_out = 0;
+    assign uo_out = {4'b0000, onehot2binary_o};
 
 
 endmodule
