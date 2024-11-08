@@ -222,18 +222,28 @@ module tt_um_kailinsley (
     lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_9 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_9),.spike_o(output_spike_o[9])); 
 
-
-    wire [3:0] onehot2binary_o;
+    reg [WIDTH_P-1:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
+                      spike_count_5, spike_count_6, spike_count_7, spike_count_8, spike_count_9;
     onehot2binary #(
-        .WIDTH_P(10)
+        .NUM_SPIKES(10),
+        .WIDTH_P(8)
     ) readout (
         .clk_i(clk),
         .rst_ni(rst_n),
-        .one_hot_i(output_spike_o),
-        .binary_o(onehot2binary_o)
+        .spike_i(output_spike_o),
+        .spike_count_0(spike_count_0),
+        .spike_count_1(spike_count_1),
+        .spike_count_2(spike_count_2),
+        .spike_count_3(spike_count_3),
+        .spike_count_4(spike_count_4),
+        .spike_count_5(spike_count_5),
+        .spike_count_6(spike_count_6),
+        .spike_count_7(spike_count_7),
+        .spike_count_8(spike_count_8),
+        .spike_count_9(spike_count_9)
     );
 
-    assign uo_out = {4'b0000, onehot2binary_o};
+    assign uo_out = spike_count_0;
 
 
 endmodule
