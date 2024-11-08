@@ -13,7 +13,7 @@ module lfsr#(
         if (~rst_ni) begin
             shift_reg <= SEED;
         end else begin
-            shift_reg <= {shift_reg[2:0], shift_reg[3] & shift_reg[2]};
+            shift_reg <= {shift_reg[2:0], shift_reg[3] ^ shift_reg[2]};
         end
     end
     

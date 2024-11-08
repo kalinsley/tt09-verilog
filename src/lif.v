@@ -32,6 +32,7 @@ module lif #(
             end else begin
                 state_r <= (state_r - (state_r >> 3));
             end
+            
             if (spike_n) begin
                 variant_threshold <= variant_threshold + THRESHOLD_INC;
             end else if (variant_threshold > THRESHOLD_MIN) begin
