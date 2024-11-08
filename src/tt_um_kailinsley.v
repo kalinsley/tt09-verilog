@@ -239,8 +239,7 @@ module tt_um_kailinsley (
     // List all unused inputs to prevent warnings
     wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
                      spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
-                     spike_count_6, spike_count_7, spike_count_8, spike_count_9, input_weight_4, 
-                     input_weight_5, input_weight_6, input_weight_7};
+                     spike_count_6, spike_count_7, spike_count_8, spike_count_9, input_weight_4, input_weight_5, input_weight_6, input_weight_7};
 
 
     assign uo_out = spike_count_0;
