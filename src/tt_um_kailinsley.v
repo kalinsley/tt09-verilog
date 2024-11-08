@@ -33,8 +33,8 @@ module tt_um_kailinsley (
     localparam THRESHOLD_MIN = 16;
 
     // Now we have 8 random weights, stored in wires weight#
-    wire [WIDTH_P-1:0] input_weight_0, input_weight_1, input_weight_2, input_weight_3, 
-                       input_weight_4, input_weight_5, input_weight_6, input_weight_7;
+    wire [WIDTH_P-1:0] input_weight_0, input_weight_1, input_weight_2, input_weight_3;
+                    //    input_weight_4, input_weight_5, input_weight_6, input_weight_7;
 
     wire [WIDTH_P-1:0] hidden_weight_0, hidden_weight_1, hidden_weight_2, 
                        hidden_weight_3, hidden_weight_4, hidden_weight_5;
@@ -42,7 +42,7 @@ module tt_um_kailinsley (
     wire [WIDTH_P-1:0] output_weight_0, output_weight_1, output_weight_2, output_weight_3, output_weight_4, 
                        output_weight_5, output_weight_6, output_weight_7, output_weight_8, output_weight_9;
     
-    wire [NUM_INPUT_NEURONS-1:0] input_spike_o;
+    wire [NUM_INPUT_NEURONS-5:0] input_spike_o;
     wire [NUM_HIDDEN_NEURONS-1:0] hidden_spike_o;
     wire [NUM_OUTPUT_NEURONS-1:0] output_spike_o;
     weights #(
