@@ -224,7 +224,7 @@ module tt_um_kailinsley (
 
     reg [WIDTH_P-1:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
                       spike_count_5, spike_count_6, spike_count_7, spike_count_8, spike_count_9;
-    onehot2binary #(
+    spike_counter #(
         .NUM_SPIKES(10),
         .WIDTH_P(8)
     ) readout (
