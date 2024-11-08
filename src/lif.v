@@ -1,7 +1,6 @@
 `default_nettype none
 
 module lif #(
-    parameter WIDTH_P = 8,
     parameter THRESHOLD = 64,
     // parameter COOLDOWN_PRD = 5'd5,
     parameter THRESHOLD_INC = 4,

@@ -18,12 +18,8 @@ module tt_um_kailinsley (
 
     // All output pins must be assigned. If not used, assign to 0.
     // assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-    // assign uio_out = 0;
+    assign uio_out = 0;
     assign uio_oe  = 0;
-
-
-    // List all unused inputs to prevent warnings
-    wire _unused = &{ena, uio_in};
 
     // LOCAL PARAMETERS
     localparam WIDTH_P = 8;
@@ -40,11 +36,11 @@ module tt_um_kailinsley (
     wire [WIDTH_P-1:0] input_weight_0, input_weight_1, input_weight_2, input_weight_3, 
                        input_weight_4, input_weight_5, input_weight_6, input_weight_7;
 
-    wire [WIDTH_P-1:0] hidden_weight_0, hidden_weight_1, hidden_weight_2, hidden_weight_3, hidden_weight_4, 
-                       hidden_weight_5, hidden_weight_6, hidden_weight_7, hidden_weight_8, hidden_weight_9;
+    wire [WIDTH_P-1:0] hidden_weight_0, hidden_weight_1, hidden_weight_2, 
+                       hidden_weight_3, hidden_weight_4, hidden_weight_5;
 
-    wire [WIDTH_P-1:0] output_weight_0, output_weight_1, output_weight_2, output_weight_3, 
-                       output_weight_4, output_weight_5, output_weight_6, output_weight_7;
+    wire [WIDTH_P-1:0] output_weight_0, output_weight_1, output_weight_2, output_weight_3, output_weight_4, 
+                       output_weight_5, output_weight_6, output_weight_7, output_weight_8, output_weight_9;
     
     wire [NUM_INPUT_NEURONS-1:0] input_spike_o;
     wire [NUM_HIDDEN_NEURONS-1:0] hidden_spike_o;
@@ -73,10 +69,10 @@ module tt_um_kailinsley (
         .weight_1(hidden_weight_1),
         .weight_2(hidden_weight_2),
         .weight_3(hidden_weight_3),
-        .weight_4(output_weight_4),
-        .weight_5(output_weight_5),
-        .weight_6(hidden_weight_6),
-        .weight_7(hidden_weight_7)
+        .weight_4(hidden_weight_4),
+        .weight_5(hidden_weight_5),
+        .weight_6(output_weight_8),
+        .weight_7(output_weight_9)
     );
 
     weights #(
@@ -88,27 +84,27 @@ module tt_um_kailinsley (
         .weight_1(output_weight_1),
         .weight_2(output_weight_2),
         .weight_3(output_weight_3),
-        .weight_4(hidden_weight_8),
-        .weight_5(hidden_weight_9),
+        .weight_4(output_weight_4),
+        .weight_5(output_weight_5),
         .weight_6(output_weight_6),
         .weight_7(output_weight_7)
     );
 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_0 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[0] ? input_weight_0 : 8'b0),.spike_o(input_spike_o[0])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_1 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[1] ? input_weight_1 : 8'b0),.spike_o(input_spike_o[1])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_2 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[2] ? input_weight_2 : 8'b0),.spike_o(input_spike_o[2])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_3 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[3] ? input_weight_3 : 8'b0),.spike_o(input_spike_o[3])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_4 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[4] ? input_weight_4 : 8'b0),.spike_o(input_spike_o[4])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_5 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[5] ? input_weight_5: 8'b0),.spike_o(input_spike_o[5])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_6 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[6] ? input_weight_6 : 8'b0),.spike_o(input_spike_o[6])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) input_lif_7 (.clk_i(clk), .rst_ni(rst_n),.current(ui_in[7] ? input_weight_7 : 8'b0),.spike_o(input_spike_o[7])); 
 
     // HIDDEN LAYER
@@ -155,71 +151,66 @@ module tt_um_kailinsley (
     ) hidden_lif_2 (.clk_i(clk), .rst_ni(rst_n),.current(hidden_current_2),.spike_o(hidden_spike_o[2])); 
 
     // Fully connected computations from hidden layer (3) to output layer (10)
-    assign output_current_0 = (hidden_spike_o[0] ? hidden_weight_0 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_0 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_0 : 8'b0);
+    assign output_current_0 = (hidden_spike_o[0] ? output_weight_0 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_0 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_0 : 8'b0);
 
-    assign output_current_1 = (hidden_spike_o[0] ? hidden_weight_1 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_1 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_1 : 8'b0);
+    assign output_current_1 = (hidden_spike_o[0] ? output_weight_1 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_1 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_1 : 8'b0);
 
-    assign output_current_2 = (hidden_spike_o[0] ? hidden_weight_2 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_2 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_2 : 8'b0);
+    assign output_current_2 = (hidden_spike_o[0] ? output_weight_2 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_2 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_2 : 8'b0);
 
-    assign output_current_3 = (hidden_spike_o[0] ? hidden_weight_3 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_3 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_3 : 8'b0);
+    assign output_current_3 = (hidden_spike_o[0] ? output_weight_3 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_3 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_3 : 8'b0);
 
-    assign output_current_4 = (hidden_spike_o[0] ? hidden_weight_4 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_4 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_4 : 8'b0);
+    assign output_current_4 = (hidden_spike_o[0] ? output_weight_4 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_4 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_4 : 8'b0);
 
-    assign output_current_5 = (hidden_spike_o[0] ? hidden_weight_5 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_5 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_5 : 8'b0);
+    assign output_current_5 = (hidden_spike_o[0] ? output_weight_5 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_5 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_5 : 8'b0);
 
-    assign output_current_6 = (hidden_spike_o[0] ? hidden_weight_6 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_6 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_6 : 8'b0);
+    assign output_current_6 = (hidden_spike_o[0] ? output_weight_6 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_6 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_6 : 8'b0);
 
-    assign output_current_7 = (hidden_spike_o[0] ? hidden_weight_7 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_7 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_7 : 8'b0);
+    assign output_current_7 = (hidden_spike_o[0] ? output_weight_7 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_7 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_7 : 8'b0);
 
-    assign output_current_8 = (hidden_spike_o[0] ? hidden_weight_8 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_8 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_8 : 8'b0);
+    assign output_current_8 = (hidden_spike_o[0] ? output_weight_8 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_8 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_8 : 8'b0);
 
-    assign output_current_9 = (hidden_spike_o[0] ? hidden_weight_9 : 8'b0) + 
-                            (hidden_spike_o[1] ? hidden_weight_9 : 8'b0) + 
-                            (hidden_spike_o[2] ? hidden_weight_9 : 8'b0) + 
-                            (hidden_spike_o[3] ? hidden_weight_9 : 8'b0) + 
-                            (hidden_spike_o[4] ? hidden_weight_9 : 8'b0) + 
-                            (hidden_spike_o[5] ? hidden_weight_9 : 8'b0) +
-                            (hidden_spike_o[6] ? hidden_weight_9 : 8'b0) +
-                            (hidden_spike_o[7] ? hidden_weight_9 : 8'b0);
+    assign output_current_9 = (hidden_spike_o[0] ? output_weight_9 : 8'b0) + 
+                            (hidden_spike_o[1] ? output_weight_9 : 8'b0) + 
+                            (hidden_spike_o[2] ? output_weight_9 : 8'b0);
 
 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_0 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_0),.spike_o(output_spike_o[0])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_1 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_1),.spike_o(output_spike_o[1])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_2 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_2),.spike_o(output_spike_o[2])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_3 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_3),.spike_o(output_spike_o[3])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_4 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_4),.spike_o(output_spike_o[4])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_5 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_5),.spike_o(output_spike_o[5])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_6 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_6),.spike_o(output_spike_o[6])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_7 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_7),.spike_o(output_spike_o[7])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_8 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_8),.spike_o(output_spike_o[8])); 
-    lif #( .WIDTH_P(WIDTH_P),.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
+    lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_9 (.clk_i(clk), .rst_ni(rst_n),.current(output_current_9),.spike_o(output_spike_o[9])); 
 
     reg [WIDTH_P-1:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
@@ -242,6 +233,13 @@ module tt_um_kailinsley (
         .spike_count_8(spike_count_8),
         .spike_count_9(spike_count_9)
     );
+
+
+    // List all unused inputs to prevent warnings
+    wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
+                     spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
+                     spike_count_6, spike_count_7, spike_count_8, spike_count_9};
+
 
     assign uo_out = spike_count_0;
 
