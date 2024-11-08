@@ -1,16 +1,25 @@
 `default_nettype none
 
+// Generates 8 bit random values between (31-0), as top 3 bits are forced (0)
+// 8 output ports for weights
+
 module weights #(
-    parameter NUM_SYNAPSES = 100,
     parameter WIDTH_P = 8,
-    parameter SEED = 42
+    parameter SEED = 4'b1010
 ) (
     input clk_i, 
     input rst_ni,
-    output reg [WIDTH_P-1:0] weights_o
+    output [WIDTH_P-1:0] weight_0,
+    output [WIDTH_P-1:0] weight_1,
+    output [WIDTH_P-1:0] weight_2,
+    output [WIDTH_P-1:0] weight_3,
+    output [WIDTH_P-1:0] weight_4,
+    output [WIDTH_P-1:0] weight_5,
+    output [WIDTH_P-1:0] weight_6,
+    output [WIDTH_P-1:0] weight_7
 );
     
-    wire [7:0] random_weight;   
+    wire [3:0] random_weight;   
     lfsr #(
         .SEED(SEED)
     ) random_weights (
@@ -19,19 +28,24 @@ module weights #(
         .random_value(random_weight)
     );
 
-    // integer i;
-    // always @(posedge clk_i) begin
-    //     if (!rst_ni) begin
-    //         for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin
-    //             weights_o[i] <= 0;
-    //         end
-    //     end else begin  
-    //         for (i = 0; i < NUM_SYNAPSES; i = i + 1) begin
-    //             weights_o[i] <= random_weight % (1 << WIDTH_P);        // use $urandom for unsigned?
-    //         end
-    //     end
-    // end
+    assign weight_0 = {3'b0, random_weight, random_weight[3]};
+    assign weight_1 = {3'b0, random_weight[1:0], random_weight[3:2], random_weight[2]};
+    assign weight_2 = {3'b0, random_weight[2:1], random_weight[0], random_weight[3], random_weight[1]};
+    assign weight_3 = {3'b0, random_weight[3:1], random_weight[3], random_weight[0]};
+    assign weight_4 = {3'b0, random_weight[3], random_weight[0], random_weight[2:1], random_weight[0]};
+    assign weight_5 = {3'b0, random_weight[1], random_weight[0], random_weight[3], random_weight[2], random_weight[1]};
+    assign weight_6 = {3'b0, random_weight[2], random_weight[1], random_weight[3], random_weight[0], random_weight[2]};
+    assign weight_7 = {3'b0, random_weight[0], random_weight[2], random_weight[1], random_weight[3], random_weight[3]};
 
-    assign weights_o = random_weight;
+    // moght change to 16 bit random for more randomness first 4 splitting into 4 bits each, then flip around bits for second 4 
+
+    // assign weight_0 = {4'b0, random_weight[3:0]};
+    // assign weight_1 = {4'b0, random_weight[7:4]};
+    // assign weight_2 = {4'b0, random_weight[11:8]};
+    // assign weight_3 = {4'b0, random_weight[15:12]};
+    // assign weight_4 = {4'b0, random_weight[12:10], random_weight[5:2], random_weight[14:13]};
+    // assign weight_5 = {4'b0, random_weight[9:6], random_weight[1:0], random_weight[11:10]};
+    // assign weight_6 = {4'b0, random_weight[12:11], random_weight[7:6], random_weight[15:13], random_weight[7]};
+    // assign weight_7 = {4'b0, random_weight[2:0], random_weight[6], random_weight[15:14], random_weight[8:7]};
     
 endmodule

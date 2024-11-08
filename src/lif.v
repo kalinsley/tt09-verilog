@@ -1,17 +1,16 @@
 `default_nettype none
 
 module lif #(
-    parameter THRESHOLD = 128,
+    parameter WIDTH_P = 8,
+    parameter THRESHOLD = 64,
     // parameter COOLDOWN_PRD = 5'd5,
-    parameter THRESHOLD_INC = 5,
-    parameter THRESHOLD_DEC = 1,
-    parameter THRESHOLD_MIN = 75
+    parameter THRESHOLD_INC = 4,
+    parameter THRESHOLD_DEC = 2,
+    parameter THRESHOLD_MIN = 32
 ) (
     input clk_i,
     input rst_ni,
     input [7:0] current,
-
-    // output reg [7:0] state_o,
     output spike_o
 );
 
@@ -32,7 +31,7 @@ module lif #(
             if (current != 8'b0) begin
                 state_r <= current + (state_r >> 1);        // revisit: may need to implement smaller decay rate then 
             end else begin
-                state_r <= state_r >> 1;
+                state_r <= (state_r - (state_r >> 3));
             end
             if (spike_n) begin
                 variant_threshold <= variant_threshold + THRESHOLD_INC;
@@ -49,8 +48,6 @@ module lif #(
         end
     end
 
-    // assign state_n = current + (state_n >> 1);
-    // assign spike_n = (state_n <= variant_threshold);
 
     assign spike_o = spike_n;
 

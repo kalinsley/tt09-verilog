@@ -4,6 +4,7 @@
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
+import random
 
 
 @cocotb.test()
@@ -26,35 +27,32 @@ async def test_project(dut):
     dut.ui_in.value = 20
     await ClockCycles(dut.clk, 1)
     dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 2)
-    dut.ui_in.value = 255
-    await ClockCycles(dut.clk, 2)
-    dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 2)
-    dut.ui_in.value = 255
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = random.randint(0, 255)
     await ClockCycles(dut.clk, 1)
     dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 100
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 255
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 255
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 255
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 255
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 0
-
     
 
     await ClockCycles(dut.clk, 100)
