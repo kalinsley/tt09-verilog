@@ -19,7 +19,7 @@ project:
   source_files:
     - "tt_um_kailinsley.v"
     - "lif.v"
-    - "onehot2binary.v"
+    - "spike_counter.v"
     - "accumulator.v"
     - "weights.v"
     - "lfsr.v"
