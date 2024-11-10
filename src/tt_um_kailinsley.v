@@ -23,10 +23,12 @@ module tt_um_kailinsley (
 
     // LOCAL PARAMETERS
     localparam WIDTH_P = 3;
+    // Couldn't fit 8 neuron input layer into design
     // localparam NUM_INPUT_NEURONS = 8;
     localparam NUM_HIDDEN_NEURONS = 3;
     localparam NUM_OUTPUT_NEURONS = 10;
 
+    // Using a lower base dynamic threshold to accomodate for minimized 3 bit weights
     localparam THRESHOLD = 16;
     localparam THRESHOLD_INC = 2;
     localparam THRESHOLD_DEC = 1;
@@ -239,6 +241,8 @@ module tt_um_kailinsley (
 
     reg [3:0] predicted_digit;
     max_spike spike_count (
+        .clk_i(clk),
+        .rst_ni(rst_n),
         .spike_count_0(spike_count_0),
         .spike_count_1(spike_count_1),
         .spike_count_2(spike_count_2),
@@ -251,6 +255,7 @@ module tt_um_kailinsley (
         .spike_count_9(spike_count_9),
         .predicted_digit(predicted_digit)
     );
+
     // List all unused inputs to prevent warnings
     wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5};
 
