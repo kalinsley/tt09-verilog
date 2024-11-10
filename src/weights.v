@@ -4,7 +4,7 @@
 // 8 output ports for weights
 
 module weights #(
-    parameter WIDTH_P = 8,
+    parameter WIDTH_P = 4,
     parameter SEED = 4'b1010
 ) (
     input clk_i, 
@@ -28,14 +28,14 @@ module weights #(
         .random_value(random_weight)
     );
 
-    assign weight_0 = {3'b0, random_weight, random_weight[3]};
-    assign weight_1 = {3'b0, random_weight[1:0], random_weight[3:2], random_weight[2]};
-    assign weight_2 = {3'b0, random_weight[2:1], random_weight[0], random_weight[3], random_weight[1]};
-    assign weight_3 = {3'b0, random_weight[3:1], random_weight[3], random_weight[0]};
-    assign weight_4 = {3'b0, random_weight[3], random_weight[0], random_weight[2:1], random_weight[0]};
-    assign weight_5 = {3'b0, random_weight[1], random_weight[0], random_weight[3], random_weight[2], random_weight[1]};
-    assign weight_6 = {3'b0, random_weight[2], random_weight[1], random_weight[3], random_weight[0], random_weight[2]};
-    assign weight_7 = {3'b0, random_weight[0], random_weight[2], random_weight[1], random_weight[3], random_weight[3]};
+    assign weight_0 = random_weight;
+    assign weight_1 = {random_weight[1:0], random_weight[3:2]};
+    assign weight_2 = {random_weight[2:1], random_weight[0], random_weight[3]};
+    assign weight_3 = {random_weight[3:1], random_weight[3]};
+    assign weight_4 = {random_weight[3], random_weight[0], random_weight[2:1]};
+    assign weight_5 = {random_weight[1], random_weight[0], random_weight[3], random_weight[2]};
+    assign weight_6 = {random_weight[2], random_weight[1], random_weight[3], random_weight[0]};
+    assign weight_7 = {random_weight[0], random_weight[2], random_weight[1], random_weight[3]};
 
     // moght change to 16 bit random for more randomness first 4 splitting into 4 bits each, then flip around bits for second 4 
 

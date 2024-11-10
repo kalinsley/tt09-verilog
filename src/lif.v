@@ -1,11 +1,11 @@
 `default_nettype none
 
 module lif #(
-    parameter THRESHOLD = 64,
+    parameter THRESHOLD = 32,
     // parameter COOLDOWN_PRD = 5'd5,
-    parameter THRESHOLD_INC = 4,
-    parameter THRESHOLD_DEC = 2,
-    parameter THRESHOLD_MIN = 32
+    parameter THRESHOLD_INC = 2,
+    parameter THRESHOLD_DEC = 1,
+    parameter THRESHOLD_MIN = 16
 ) (
     input clk_i,
     input rst_ni,
