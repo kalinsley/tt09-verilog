@@ -28,17 +28,28 @@ module weights #(
         .random_value(random_weight)
     );
 
-    assign weight_0 = random_weight;
-    assign weight_1 = {random_weight[1:0], random_weight[3:2]};
-    assign weight_2 = {random_weight[2:1], random_weight[0], random_weight[3]};
-    assign weight_3 = {random_weight[3:1], random_weight[3]};
-    assign weight_4 = {random_weight[3], random_weight[0], random_weight[2:1]};
-    assign weight_5 = {random_weight[1], random_weight[0], random_weight[3], random_weight[2]};
-    assign weight_6 = {random_weight[2], random_weight[1], random_weight[3], random_weight[0]};
-    assign weight_7 = {random_weight[0], random_weight[2], random_weight[1], random_weight[3]};
+    // Capped weights at 3 bits for space constraint
+    assign weight_0 = random_weight[2:0];
+    assign weight_1 = {random_weight[1:0], random_weight[3]};
+    assign weight_2 = {random_weight[2:1], random_weight[0]};
+    assign weight_3 = {random_weight[3:1]};
+    assign weight_4 = {random_weight[3], random_weight[2:1]};
+    assign weight_5 = {random_weight[1], random_weight[3], random_weight[2]};
+    assign weight_6 = {random_weight[2], random_weight[1], random_weight[0]};
+    assign weight_7 = {random_weight[0], random_weight[2], random_weight[3]};
+
+    // THIS DID NOT FIT ON THE TT 1x1 TILE SPACE
+    // assign weight_0 = random_weight;
+    // assign weight_1 = {random_weight[1:0], random_weight[3:2]};
+    // assign weight_2 = {random_weight[2:1], random_weight[0], random_weight[3]};
+    // assign weight_3 = {random_weight[3:1], random_weight[3]};
+    // assign weight_4 = {random_weight[3], random_weight[0], random_weight[2:1]};
+    // assign weight_5 = {random_weight[1], random_weight[0], random_weight[3], random_weight[2]};
+    // assign weight_6 = {random_weight[2], random_weight[1], random_weight[3], random_weight[0]};
+    // assign weight_7 = {random_weight[0], random_weight[2], random_weight[1], random_weight[3]};
+
 
     // moght change to 16 bit random for more randomness first 4 splitting into 4 bits each, then flip around bits for second 4 
-
     // assign weight_0 = {4'b0, random_weight[3:0]};
     // assign weight_1 = {4'b0, random_weight[7:4]};
     // assign weight_2 = {4'b0, random_weight[11:8]};
