@@ -13,7 +13,7 @@ module max_spike(
     input reg [7:0] spike_count_7,
     input reg [7:0] spike_count_8,
     input reg [7:0] spike_count_9,
-    output reg [3:0] predicted_digit
+    output reg [7:0] predicted_digit
 );
     reg [7:0] max_count;
     always @(posedge clk_i) begin
