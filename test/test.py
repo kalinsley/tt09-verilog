@@ -13,10 +13,12 @@ async def test_project(dut):
 
     cocotb.start_soon(Clock(dut.clk, 10, 'ns').start())
 
+
     await ClockCycles(dut.clk, 10)
     dut.rst_n.value = 0
     await ClockCycles(dut.clk, 10)
     dut.rst_n.value = 1
+    dut.uio_in.value = 0
     await ClockCycles(dut.clk, 10)
 
     for i in range(784):
@@ -24,10 +26,12 @@ async def test_project(dut):
         await ClockCycles(dut.clk, 1)
 
     dut.ui_in.value = 0
-    await ClockCycles(dut.clk, 10)
-
-
     await ClockCycles(dut.clk, 100)
+
+    for i in range(0, 10):
+        dut.uio_in.value = i
+        await ClockCycles(dut.clk, 10)
+
 
 
     dut._log.info("Done")

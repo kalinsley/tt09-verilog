@@ -2,7 +2,6 @@
 
 module lif #(
     parameter THRESHOLD = 32,
-    // parameter COOLDOWN_PRD = 5'd5,
     parameter THRESHOLD_INC = 2,
     parameter THRESHOLD_DEC = 1,
     parameter THRESHOLD_MIN = 16

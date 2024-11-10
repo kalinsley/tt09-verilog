@@ -1,6 +1,7 @@
 `default_nettype none
 
 // Generates 8 bit random values between (31-0), as top 3 bits are forced (0)
+// revision: generates smaller bit values because of size constraints
 // 8 output ports for weights
 
 module weights #(

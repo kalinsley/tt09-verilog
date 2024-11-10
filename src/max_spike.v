@@ -1,5 +1,6 @@
 `default_nettype none
 
+// could not fit into design, but will leave here for future purposes
 module max_spike #(
     parameter WIDTH_P = 8
 ) (
@@ -20,10 +21,8 @@ module max_spike #(
     reg [WIDTH_P-1:0] max_count;
     always @(posedge clk_i) begin
         if (!rst_ni) begin
-            // Reset max_count to 0 on reset
-            max_count <= 8'b0;
+            max_count <= 4'b0;
         end else begin
-            // Compare and update max_count with the highest value
             if (spike_count_0 > max_count) begin
                 max_count <= spike_count_0;
                 predicted_digit <= 4'd0;

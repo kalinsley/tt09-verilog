@@ -7,7 +7,6 @@ module spike_counter #(
     input clk_i,
     input rst_ni,
     input [NUM_SPIKES-1:0] spike_i,
-    // output [$clog2(WIDTH_P)-1:0] binary_o
     output reg [WIDTH_P-1:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
                              spike_count_5, spike_count_6, spike_count_7, spike_count_8, spike_count_9
 );
