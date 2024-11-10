@@ -23,8 +23,8 @@ module tt_um_kailinsley (
     localparam NUM_OUTPUT_NEURONS = 10;
 
     localparam THRESHOLD = 16;
-    localparam THRESHOLD_INC = 4;
-    localparam THRESHOLD_DEC = 2;
+    localparam THRESHOLD_INC = 2;
+    localparam THRESHOLD_DEC = 1;
     localparam THRESHOLD_MIN = 8;
 
     // Now we have 8 random weights, stored in wires weight#
@@ -210,12 +210,12 @@ module tt_um_kailinsley (
     lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_9 (.clk_i(clk), .rst_ni(rst_n),.current({5'b0, output_current_9}),.spike_o(output_spike_o[9])); 
 
-    reg [7:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
+    reg [5:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
               spike_count_5, spike_count_6, spike_count_7, spike_count_8, spike_count_9;
     
     spike_counter #(
         .NUM_SPIKES(10),
-        .WIDTH_P(8)
+        .WIDTH_P(6)
     ) spike_counter (
         .clk_i(clk),
         .rst_ni(rst_n),
@@ -232,8 +232,10 @@ module tt_um_kailinsley (
         .spike_count_9(spike_count_9)
     );
 
-    reg [7:0] predicted_digit;
-    max_spike readout (
+    reg [3:0] predicted_digit;
+    max_spike #(
+        .WIDTH_P(6)
+    ) readout (
         .clk_i(clk),
         .rst_ni(rst_n),
         .spike_count_0(spike_count_0),
@@ -253,12 +255,13 @@ module tt_um_kailinsley (
     // wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
     //                  spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
     //                  spike_count_6, spike_count_7, spike_count_8, spike_count_9};
+
     wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5};
 
 
 
 
-    assign uo_out = predicted_digit;
+    assign uo_out = {4'b0, predicted_digit};
 
 
 endmodule

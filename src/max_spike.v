@@ -1,21 +1,23 @@
 `default_nettype none
 
-module max_spike(
+module max_spike #(
+    parameter WIDTH_P = 8
+) (
     input clk_i,
     input rst_ni,
-    input reg [7:0] spike_count_0,
-    input reg [7:0] spike_count_1,
-    input reg [7:0] spike_count_2,
-    input reg [7:0] spike_count_3,
-    input reg [7:0] spike_count_4,
-    input reg [7:0] spike_count_5,
-    input reg [7:0] spike_count_6,
-    input reg [7:0] spike_count_7,
-    input reg [7:0] spike_count_8,
-    input reg [7:0] spike_count_9,
-    output reg [7:0] predicted_digit
+    input reg [WIDTH_P-1:0] spike_count_0,
+    input reg [WIDTH_P-1:0] spike_count_1,
+    input reg [WIDTH_P-1:0] spike_count_2,
+    input reg [WIDTH_P-1:0] spike_count_3,
+    input reg [WIDTH_P-1:0] spike_count_4,
+    input reg [WIDTH_P-1:0] spike_count_5,
+    input reg [WIDTH_P-1:0] spike_count_6,
+    input reg [WIDTH_P-1:0] spike_count_7,
+    input reg [WIDTH_P-1:0] spike_count_8,
+    input reg [WIDTH_P-1:0] spike_count_9,
+    output reg [3:0] predicted_digit
 );
-    reg [7:0] max_count;
+    reg [WIDTH_P-1:0] max_count;
     always @(posedge clk_i) begin
         if (!rst_ni) begin
             // Reset max_count to 0 on reset
