@@ -20,7 +20,7 @@ project:
     - "tt_um_kailinsley.v"
     - "lif.v"
     - "spike_counter.v"
-    - "max_spike.v"
+    #- "max_spike.v"
     - "weights.v"
     - "lfsr.v"
     

@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2024 Your Name
- * SPDX-License-Identifier: Apache-2.0
- */
-
 `default_nettype none
 
 module tt_um_kailinsley (
@@ -23,15 +18,13 @@ module tt_um_kailinsley (
 
     // LOCAL PARAMETERS
     localparam WIDTH_P = 3;
-    // Couldn't fit 8 neuron input layer into design
-    // localparam NUM_INPUT_NEURONS = 8;
+    localparam NUM_INPUT_NEURONS = 8;
     localparam NUM_HIDDEN_NEURONS = 3;
     localparam NUM_OUTPUT_NEURONS = 10;
 
-    // Using a lower base dynamic threshold to accomodate for minimized 3 bit weights
     localparam THRESHOLD = 16;
-    localparam THRESHOLD_INC = 2;
-    localparam THRESHOLD_DEC = 1;
+    localparam THRESHOLD_INC = 4;
+    localparam THRESHOLD_DEC = 2;
     localparam THRESHOLD_MIN = 8;
 
     // Now we have 8 random weights, stored in wires weight#
@@ -44,7 +37,7 @@ module tt_um_kailinsley (
     wire [WIDTH_P-1:0] output_weight_0, output_weight_1, output_weight_2, output_weight_3, output_weight_4, 
                        output_weight_5, output_weight_6, output_weight_7, output_weight_8, output_weight_9;
     
-    // wire [NUM_INPUT_NEURONS-1:0] input_spike_o;
+    wire [NUM_INPUT_NEURONS-1:0] input_spike_o;
     wire [NUM_HIDDEN_NEURONS-1:0] hidden_spike_o;
     wire [NUM_OUTPUT_NEURONS-1:0] output_spike_o;
     // weights #(
@@ -63,7 +56,7 @@ module tt_um_kailinsley (
     // );
 
     weights #(
-        .SEED(4'b1010),
+        .SEED(4'b1100),
         .WIDTH_P(WIDTH_P)
     ) hidden_weights_8 (
         .clk_i(clk),
@@ -79,7 +72,7 @@ module tt_um_kailinsley (
     );
 
     weights #(
-        .SEED(4'b1100),
+        .SEED(4'b0011),
         .WIDTH_P(WIDTH_P)
     ) output_weights_8 (
         .clk_i(clk),
@@ -239,32 +232,14 @@ module tt_um_kailinsley (
         .spike_count_9(spike_count_9)
     );
 
-    reg [3:0] predicted_digit;
-    max_spike spike_count (
-        .clk_i(clk),
-        .rst_ni(rst_n),
-        .spike_count_0(spike_count_0),
-        .spike_count_1(spike_count_1),
-        .spike_count_2(spike_count_2),
-        .spike_count_3(spike_count_3),
-        .spike_count_4(spike_count_4),
-        .spike_count_5(spike_count_5),
-        .spike_count_6(spike_count_6),
-        .spike_count_7(spike_count_7),
-        .spike_count_8(spike_count_8),
-        .spike_count_9(spike_count_9),
-        .predicted_digit(predicted_digit)
-    );
 
     // List all unused inputs to prevent warnings
-    wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5};
+    wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
+                     spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
+                     spike_count_6, spike_count_7, spike_count_8, spike_count_9};
 
-    // // List all unused inputs to prevent warnings
-    // wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
-    //                  spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
-    //                  spike_count_6, spike_count_7, spike_count_8, spike_count_9};
 
-    assign uo_out = predicted_digit;
+    assign uo_out = spike_count_0;
 
 
 endmodule
