@@ -210,7 +210,7 @@ module tt_um_kailinsley (
     lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_9 (.clk_i(clk), .rst_ni(rst_n),.current({5'b0, output_current_9}),.spike_o(output_spike_o[9])); 
 
-    reg [7:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
+    reg [5:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
               spike_count_5, spike_count_6, spike_count_7, spike_count_8, spike_count_9;
 
     spike_counter #(
