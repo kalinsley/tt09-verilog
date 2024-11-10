@@ -28,8 +28,8 @@ module tt_um_kailinsley (
     localparam NUM_OUTPUT_NEURONS = 10;
 
     localparam THRESHOLD = 32;
-    localparam THRESHOLD_INC = 4;
-    localparam THRESHOLD_DEC = 2;
+    localparam THRESHOLD_INC = 2;
+    localparam THRESHOLD_DEC = 1;
     localparam THRESHOLD_MIN = 16;
 
     // Now we have 8 random weights, stored in wires weight#
@@ -61,7 +61,7 @@ module tt_um_kailinsley (
     // );
 
     weights #(
-        .SEED(4'b1100)
+        .SEED(4'b1010)
     ) hidden_weights_8 (
         .clk_i(clk),
         .rst_ni(rst_n),
@@ -76,7 +76,7 @@ module tt_um_kailinsley (
     );
 
     weights #(
-        .SEED(4'b0011)
+        .SEED(4'b1100)
     ) output_weights_8 (
         .clk_i(clk),
         .rst_ni(rst_n),
@@ -213,13 +213,15 @@ module tt_um_kailinsley (
     lif #(.THRESHOLD(THRESHOLD),.THRESHOLD_INC(THRESHOLD_INC),.THRESHOLD_DEC(THRESHOLD_DEC), .THRESHOLD_MIN(THRESHOLD_MIN)
     ) output_lif_9 (.clk_i(clk), .rst_ni(rst_n),.current({4'b0, output_current_9}),.spike_o(output_spike_o[9])); 
 
-    reg [WIDTH_P-1:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
+    reg [7:0] spike_count_0, spike_count_1, spike_count_2, spike_count_3, spike_count_4,
                       spike_count_5, spike_count_6, spike_count_7, spike_count_8, spike_count_9;
     
+    reg [WIDTH_P-1:0] predicted_digit;
+
     spike_counter #(
         .NUM_SPIKES(10),
         .WIDTH_P(8)
-    ) readout (
+    ) accumulate (
         .clk_i(clk),
         .rst_ni(rst_n),
         .spike_i(output_spike_o),
@@ -235,14 +237,23 @@ module tt_um_kailinsley (
         .spike_count_9(spike_count_9)
     );
 
-
+    max_spike readout (
+        .spike_count_0(spike_count_0),
+        .spike_count_1(spike_count_1),
+        .spike_count_2(spike_count_2),
+        .spike_count_3(spike_count_3),
+        .spike_count_4(spike_count_4),
+        .spike_count_5(spike_count_5),
+        .spike_count_6(spike_count_6),
+        .spike_count_7(spike_count_7),
+        .spike_count_8(spike_count_8),
+        .spike_count_9(spike_count_9),
+        .predicted_digit(predicted_digit)
+    );
     // List all unused inputs to prevent warnings
-    wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
-                     spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
-                     spike_count_6, spike_count_7, spike_count_8, spike_count_9};
+    wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5};
 
-
-    assign uo_out = spike_count_0;
+    assign uo_out = {4'b0, predicted_digit};
 
 
 endmodule

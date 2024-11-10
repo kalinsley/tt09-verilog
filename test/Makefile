@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = tt_um_kailinsley.v lif.v spike_counter.v weights.v lfsr.v accumulator.v
+PROJECT_SOURCES = tt_um_kailinsley.v lif.v spike_counter.v weights.v lfsr.v max_spike.v
 
 ifneq ($(GATES),yes)
 

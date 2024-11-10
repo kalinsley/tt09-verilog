@@ -24,36 +24,186 @@ async def test_project(dut):
     dut.ui_in.value = 0
     await ClockCycles(dut.clk, 10)
 
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 12
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 35
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 58
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 123
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 200
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 255
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 255
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 230
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 180
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 75
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 40
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 10
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 15
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 55
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 100
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 190
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 5
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 25
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 40
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 85
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 140
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 210
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 255
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 200
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 150
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 90
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 50
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 25
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 5
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
     dut.ui_in.value = 20
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = 0
+    dut.ui_in.value = 65
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 120
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 180
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 240
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 255
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 230
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 180
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 130
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 80
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 50
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 25
     await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
-    await ClockCycles(dut.clk, 1)
-    dut.ui_in.value = random.randint(0, 255)
+    dut.ui_in.value = 10
     await ClockCycles(dut.clk, 1)
     dut.ui_in.value = 0
-    
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 30
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 70
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 100
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 150
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 220
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 255
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 210
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 180
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 110
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 60
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 35
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 15
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 40
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 80
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 120
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 160
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 200
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 250
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 230
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 200
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 120
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 90
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 70
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 30
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 10
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 20
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 60
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 100
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 130
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 175
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 210
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 255
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 205
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 165
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 120
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 95
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 60
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 30
+    await ClockCycles(dut.clk, 1)
+    dut.ui_in.value = 0
+    await ClockCycles(dut.clk, 1)
 
     await ClockCycles(dut.clk, 100)
 
