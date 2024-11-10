@@ -42,7 +42,7 @@ module tt_um_kailinsley (
     wire [WIDTH_P-1:0] output_weight_0, output_weight_1, output_weight_2, output_weight_3, output_weight_4, 
                        output_weight_5, output_weight_6, output_weight_7, output_weight_8, output_weight_9;
     
-    wire [NUM_INPUT_NEURONS-1:0] input_spike_o;
+    // wire [NUM_INPUT_NEURONS-1:0] input_spike_o;
     wire [NUM_HIDDEN_NEURONS-1:0] hidden_spike_o;
     wire [NUM_OUTPUT_NEURONS-1:0] output_spike_o;
     // weights #(
