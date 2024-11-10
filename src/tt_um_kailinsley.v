@@ -23,7 +23,7 @@ module tt_um_kailinsley (
 
     // LOCAL PARAMETERS
     localparam WIDTH_P = 8;
-    localparam NUM_INPUT_NEURONS = 8;
+    // localparam NUM_INPUT_NEURONS = 8;
     localparam NUM_HIDDEN_NEURONS = 3;
     localparam NUM_OUTPUT_NEURONS = 10;
 
