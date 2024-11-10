@@ -233,27 +233,25 @@ module tt_um_kailinsley (
         .spike_count_9(spike_count_9)
     );
 
-
-
     // // List all unused inputs to prevent warnings
-    // wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
-    //                  spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
-    //                  spike_count_6, spike_count_7, spike_count_8, spike_count_9};
+    wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5, 
+                     spike_count_1, spike_count_2, spike_count_3, spike_count_4, spike_count_5,
+                     spike_count_6, spike_count_7, spike_count_8, spike_count_9};
 
-    wire _unused = &{ena, uio_in[7:4], hidden_weight_3, hidden_weight_4, hidden_weight_5};
+    // wire _unused = &{ena, uio_in, hidden_weight_3, hidden_weight_4, hidden_weight_5};
 
-    assign spike_count_o = (uio_in[3:0] == 4'd0) ? spike_count_0 : 
-                            (uio_in[3:0] == 4'd1) ? spike_count_1 :
-                            (uio_in[3:0] == 4'd2) ? spike_count_2 :
-                            (uio_in[3:0] == 4'd3) ? spike_count_3 :
-                            (uio_in[3:0] == 4'd4) ? spike_count_4 :
-                            (uio_in[3:0] == 4'd5) ? spike_count_5 :
-                            (uio_in[3:0] == 4'd6) ? spike_count_6 :
-                            (uio_in[3:0] == 4'd7) ? spike_count_7 :
-                            (uio_in[3:0] == 4'd8) ? spike_count_8 :
-                            (uio_in[3:0] == 4'd9) ? spike_count_9 :
-                            4'b0;
+    // assign spike_count_o = (uio_in[3:0] == 4'd0) ? spike_count_0 : 
+    //                         (uio_in[3:0] == 4'd1) ? spike_count_1 :
+    //                         (uio_in[3:0] == 4'd2) ? spike_count_2 :
+    //                         (uio_in[3:0] == 4'd3) ? spike_count_3 :
+    //                         (uio_in[3:0] == 4'd4) ? spike_count_4 :
+    //                         (uio_in[3:0] == 4'd5) ? spike_count_5 :
+    //                         (uio_in[3:0] == 4'd6) ? spike_count_6 :
+    //                         (uio_in[3:0] == 4'd7) ? spike_count_7 :
+    //                         (uio_in[3:0] == 4'd8) ? spike_count_8 :
+    //                         (uio_in[3:0] == 4'd9) ? spike_count_9 :
+    //                         4'b0;
 
-    assign uo_out = spike_count_o;
+    assign uo_out = spike_count_0;
 
 endmodule
